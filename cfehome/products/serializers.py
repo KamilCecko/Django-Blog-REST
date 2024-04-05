@@ -14,12 +14,19 @@ class UserProductInLineSerializer(serializers.Serializer):
 
     title = serializers.CharField(read_only=True)
 
-class ProductSerializer(serializers.ModelSerializer):
-    owner = UserPublicSerializer(source='user', read_only=True)
+
+class ProductSerializer(
+    serializers.ModelSerializer,
+):
+    owner = UserPublicSerializer(
+        source='user',
+        read_only=True,
+    )
     edit_url = serializers.SerializerMethodField(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='product-detail',
-                                             lookup_field='pk'
-                                             )
+    url = serializers.HyperlinkedIdentityField(
+        view_name='product-detail',
+        lookup_field='pk'
+    )
     title = serializers.CharField(validators=[validators.validate_title_no_hello,
     validators.unique_product_title ])
 
