@@ -3,7 +3,10 @@ from .permissions import IsStaffEditorPermission
 
 
 class StaffEditorPermissionMixin():
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
+    permission_classes = [
+        permissions.IsAdminUser,
+        IsStaffEditorPermission,
+    ]
 
 
 class UserQuerySetMixin():
@@ -12,9 +15,8 @@ class UserQuerySetMixin():
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
-        lookup_data = {}
-        lookup_data[self.user_field] = self.request.user
-        qs = super().get_queryset(*args, **kwargs)
+        lookup_data = {self.user_field: self.request.user}
+        queryset = super().get_queryset(*args, **kwargs)
         if self.allow_staff_view and user.is_staff:
-            return qs
-        return qs.filter(**lookup_data)
+            return queryset
+        return queryset.filter(**lookup_data)

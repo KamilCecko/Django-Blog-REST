@@ -11,11 +11,11 @@ class ProductQuerySet(models.QuerySet):
 
     def search(self, query, user=None):
         lookup = Q(title__icontains=query) | Q(content__icontains=query)
-        qs = self.is_public().filter(lookup)
-        if user is not None:
-            qs2 = qs.filter(user=user).filter(lookup)
-            qs = (qs | qs2).distinct()
-        return qs
+        queryset = self.is_public().filter(lookup)
+        if user:
+            queryset2 = queryset.filter(user=user).filter(lookup)
+            queryset = (queryset | queryset2).distinct()
+        return queryset
 
 
 class ProductManager(models.Manager):
@@ -39,5 +39,6 @@ class Product(models.Model):
     def sale_price(self):
         return "%.2f" % (float(self.price)*0.8)
 
+    @property
     def get_discount(self):
         return 122
