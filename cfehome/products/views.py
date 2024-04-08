@@ -21,9 +21,14 @@ class ProductListCreateAPIView(
         serializer.save(user=self.request.user, content=content)
 
     def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
         user = self.request.user
-        return queryset.filter(user=self.request.user) if user.is_authenticated else Product.objects.none()
+
+        if user.is_anonymous:
+            return Product.objects.none()
+
+        if user.is_authenticated:
+            queryset = super().get_queryset(*args, **kwargs)
+            return queryset.filter(user=user)
 
 
 product_list_create_view = ProductListCreateAPIView.as_view()
