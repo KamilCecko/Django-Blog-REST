@@ -1,18 +1,56 @@
-# Django-Blog-REST
+# Django Blog REST
 
-Django app creating blog with REST framework 
+A Django application for creating and managing blogs with REST framework support.
 
-# Dependencies
+## Requirements
 
-Django5.0.6 +  django-ckeditor6.7.1 + djangorestframework3.15.1 + djangorestframework-simplejwt5.3.1 + pillow10.3.0 +
-PyJWT2.9.0
+- Python 3.8+
+- Django 5.1
 
-# Project content
+## Dependencies
 
-the project consists of two applications. 
+- `Django` 5.1
+- `django-ckeditor` 6.7.1
+- `django-js-asset` 2.2.0
+- `djangorestframework` 3.15.2
+- `djangorestframework-simplejwt` 5.3.1
+- `pillow` 10.4.0
+- `PyJWT` 2.9.0
+- `sqlparse` 0.5.1
+- `tzdata` 2024.1
+- `asgiref` 3.8.1
 
-- Application member takes care of creating user accounts, updating data in accounts, changing passwords and creating profiles.
-- Application member also offers authorization with JSON web tokens or SessionAuthentication.
-- Application theblog takes care of creating and editing blogs, creating categories and adding blogs to categories and adding comments.
-- Application theblog is also tasked storing static files or photos added by users.
-- The project was made so that the program could be fully interacted with APIView.
+## Project Overview
+
+### 1. `member` Application
+
+- **Purpose**: Manages user accounts.
+- **Features**:
+  - Account creation.
+  - Data updates.
+  - Password changes.
+  - Profile management.
+  - Authentication via JSON Web Tokens (JWT) or session authentication.
+
+### 2. `theblog` Application
+
+- **Purpose**: Manages blogs and related features.
+- **Features**:
+  - Blog creation and editing.
+  - Category management.
+  - Commenting on blogs.
+  - Storage of static files and user-uploaded images.
+
+The project is designed to be fully interactive through APIView, providing comprehensive API endpoints for interaction.
+## Installation
+
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/KamilCecko/Django-Blog.git
+   
+2. Install the dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
