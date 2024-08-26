@@ -44,7 +44,7 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView, mixins.CreateModelMi
         post_data = PostSerializer(post).data
         return Response(
             data={
-                'new_comment': request.data,
+                'new_comment': serializer.data,
                 'current_post': post_data
             },
             status=status.HTTP_201_CREATED,
