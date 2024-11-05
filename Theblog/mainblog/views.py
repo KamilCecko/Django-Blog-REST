@@ -28,16 +28,12 @@ class PostList(generics.ListCreateAPIView):
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView, mixins.CreateModelMixin):
     queryset = Post.objects.all()
     lookup_field = 'pk'
+    serializer_class = PostSerializer
     permission_classes = [CustomPermission]
-
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return CommentSerializer
-        return PostSerializer
 
     def post(self, request, *args, **kwargs):
         post = self.get_object()
-        serializer = self.get_serializer(data=request.data)
+        serializer = CommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
